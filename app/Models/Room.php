@@ -16,6 +16,7 @@ class Room extends Model
     use HasFactory;
 
     protected $casts = ['status' => RoomStatusEnum::class];
+    protected $fillable = ['number', 'block_id', 'status', 'capacity'];
 
     public function block(): BelongsTo {
         return $this->belongsTo(Block::class);

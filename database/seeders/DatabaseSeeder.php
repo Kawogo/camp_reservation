@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory()->create([
             'name' => 'admin',
-            'email' => 'admin@filament.com',
+            'email' => 'admin@cms.com',
         ]);
 
         Company::factory()->create();

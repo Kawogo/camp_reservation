@@ -10,8 +10,16 @@ class Checkout extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'period_offsite',
+        'leave_date',
+        'return_date',
+        'member_id',
+    ];
 
-    public function member(): BelongsTo {
+
+    public function member(): BelongsTo
+    {
         return $this->belongsTo(Member::class);
     }
 }

@@ -2,10 +2,8 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasColor;
-use Filament\Support\Contracts\HasLabel;
 
-enum RoomStatusEnum: string implements HasLabel, HasColor
+enum RoomStatusEnum: string 
 {
     case Open = 'open';
     case Full = 'full';

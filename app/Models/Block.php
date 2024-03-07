@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Block extends Model
 {
     use HasFactory;
+    protected $fillable =['name', 'camp_id'];
 
     public function camp(): BelongsTo {
         return $this->belongsTo(Camp::class);

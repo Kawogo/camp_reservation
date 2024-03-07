@@ -5,7 +5,7 @@ namespace App\Enums;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum BookingStatus: string implements HasLabel, HasColor
+enum CheckinStatus: string 
 {
     case Active = 'active';
     case Pending = 'pending';

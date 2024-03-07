@@ -11,6 +11,8 @@ class Camp extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'company_id'];
+
     public function blocks(): HasMany {
         return $this->hasMany(Block::class);
     }

@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use Filament\Support\Contracts\HasLabel;
 
-enum MemberTypeEnum: string implements HasLabel
+enum MemberTypeEnum: string
 {
     case Permanent = 'permanent';
     case Temporary = 'tempo';

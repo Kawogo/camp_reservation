@@ -12,7 +12,7 @@ class Member extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['room_id','company_id','department_id','name', 'phone','id_number','occupation', 'block_id', 'camp_id'];
+    protected $fillable = ['room_id','company_id','department_id','name', 'phone','id_number','type', 'block_id', 'camp_id'];
 
     protected $casts = ['type' => MemberTypeEnum::class];
 
@@ -23,8 +23,6 @@ class Member extends Model
     public function block(): BelongsTo {
         return $this->belongsTo(Block::class);
     }
-
-
 
     public function checkouts(): HasMany {
         return $this->hasMany(Checkout::class);

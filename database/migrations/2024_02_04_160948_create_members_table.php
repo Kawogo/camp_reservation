@@ -9,6 +9,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * 
      */
     public function up(): void
     {
@@ -20,7 +21,7 @@ return new class extends Migration
             $table->string('phone');
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete()->nullable();
             $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete()->nullable();
-            $table->foreignId('camp_id')->constrained('blocks')->cascadeOnDelete()->nullable();
+            $table->foreignId('camp_id')->constrained('camps')->cascadeOnDelete()->nullable();
             $table->foreignId('block_id')->constrained('blocks')->cascadeOnDelete()->nullable();
             $table->foreignId('room_id')->cascadeOnDelete()->nullable();
             $table->timestamps();

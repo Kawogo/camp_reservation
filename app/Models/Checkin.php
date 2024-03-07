@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-use App\Enums\BookingStatus;
+use App\Enums\CheckinStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Booking extends Model
+class Checkin extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['status'. 'period_onsite', 'from_date', 'to_date', 'room_id', 'member_id'];
+    protected $fillable = ['status', 'period_onsite', 'from_date', 'to_date', 'room_id', 'member_id'];
 
-    protected $casts = ['status' => BookingStatus::class];
+    protected $casts = ['status' => CheckinStatus::class];
 
     public function member(): BelongsTo {
         return $this->belongsTo(Member::class);

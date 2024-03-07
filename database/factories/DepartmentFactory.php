@@ -17,7 +17,8 @@ class DepartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->sentence(5)
+            'name' => fake()->sentence(5),
+            'company_id' => 1
         ];
     }
 }

@@ -20,4 +20,8 @@ class Company extends Model
     public function camps(): HasMany {
         return $this->hasMany(Camp::class);
     }
+
+    public function departments(): HasMany {
+        return $this->hasMany(Department::class);
+    }
 }
