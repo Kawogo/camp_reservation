@@ -46,7 +46,7 @@ class CheckoutController extends Controller
 
             // CHECK IF THE MEMBER HAS ACTIVE CHECKIN
             $isActiveBooking = Checkin::where(['member_id' => $request->validated('member_id'), 'status' => CheckinStatus::Active->value])->first();
-
+          
 
             if ($isActiveBooking) {
                 // recalucate the onsite days
@@ -61,8 +61,7 @@ class CheckoutController extends Controller
                         'from_date' => $isActiveBooking->from_date
                     ]
                 );
-            Room::where('id', '=', $isActiveBooking->room_id)->update(['status' => RoomStatusEnum::Open->value]);
-
+                Room::where('id', '=', $isActiveBooking->room_id)->update(['status' => RoomStatusEnum::Open->value]);
             }
 
             DB::commit();
@@ -109,7 +108,7 @@ class CheckoutController extends Controller
 
 
             if ($isActiveBooking) {
-                // recalucate the onsite days
+                // Recalucate the onsite days
                 $fromDate = \Carbon\Carbon::parse($isActiveBooking->from_date);
                 $toDate = \Carbon\Carbon::parse($request->validated('leave_date'));
                 $period_onsite = $toDate->diffInDays($fromDate) + 1;
@@ -121,9 +120,7 @@ class CheckoutController extends Controller
                         'from_date' => $isActiveBooking->from_date
                     ]
                 );
-                // Room::find($request->validated('room_id'))->update(['status' => RoomStatusEnum::Open->value]);
-            Room::where('id', '=', $isActiveBooking->room_id)->update(['status' => RoomStatusEnum::Open->value]);
-
+                Room::where('id', '=', $isActiveBooking->room_id)->update(['status' => RoomStatusEnum::Open->value]);
             }
 
             DB::commit();

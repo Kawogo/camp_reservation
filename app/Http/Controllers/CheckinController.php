@@ -89,15 +89,22 @@ class CheckinController extends Controller
         try {
             DB::beginTransaction();
 
-            $checkin->update($request->validated());
-
             if ($request->validated('status') == CheckinStatus::Closed->value) {
                 # code...
                 Room::find($request->validated('room_id'))->update(['status' => RoomStatusEnum::Open->value]);
             }
 
+            if ($checkin->room_id != $request->validated('room_id')) {
+                Room::find($checkin->room_id)->update(['status' => RoomStatusEnum::Open->value]);
+                Room::find($request->validated('room_id'))->update(['status' => RoomStatusEnum::Full->value]);
+            }
+
+            $checkin->update($request->validated());
+
+
             DB::commit();
             return redirect()->route('checkins.index')->with('message', 'Checkin data changed successfully.');
+
         } catch (\Exception $e) {
 
             DB::rollBack();

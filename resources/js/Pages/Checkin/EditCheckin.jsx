@@ -5,6 +5,7 @@ import { Link, useForm } from "@inertiajs/react";
 import React from "react";
 
 const EditCheckin = ({ auth, response }) => {
+    console.log(response);
     const { data, setData, put, processing, errors, reset } = useForm({
         from_date: response.checkin.from_date,
         to_date: response.checkin.to_date,
@@ -21,12 +22,16 @@ const EditCheckin = ({ auth, response }) => {
         return { value: room.id, label: room.number };
     });
 
-    const statusOpts = response.status.filter((item) => item === 'closed').map(function (status) {
-        return {
-            value: status,
-            label: status[0].toUpperCase() + status.substring(1),
-        };
-    });
+    console.log(roomOpts.find((item) => item.value === data.room_id));
+
+    const statusOpts = response.status
+        .filter((item) => item === "closed")
+        .map(function (status) {
+            return {
+                value: status,
+                label: status[0].toUpperCase() + status.substring(1),
+            };
+        });
 
     function submit(e) {
         e.preventDefault();
@@ -156,7 +161,7 @@ const EditCheckin = ({ auth, response }) => {
                                         From
                                     </label>
                                     <input
-                                    defaultValue={data.from_date}
+                                        defaultValue={data.from_date}
                                         onChange={(e) =>
                                             setData("from_date", e.target.value)
                                         }
@@ -181,7 +186,7 @@ const EditCheckin = ({ auth, response }) => {
                                         To
                                     </label>
                                     <input
-                                    defaultValue={data.to_date}
+                                        defaultValue={data.to_date}
                                         onChange={(e) =>
                                             setData("to_date", e.target.value)
                                         }
@@ -206,8 +211,9 @@ const EditCheckin = ({ auth, response }) => {
                                         Status
                                     </label>
                                     <Select
-                                    defaultValue={statusOpts.find((item) => item.value === data.status)}
-
+                                        defaultValue={statusOpts.find(
+                                            (item) => item.value === data.status
+                                        )}
                                         options={statusOpts}
                                         onChange={(choice) =>
                                             setData("status", choice.value)

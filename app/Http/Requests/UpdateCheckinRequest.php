@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
-class CheckinRequest extends FormRequest
+class UpdateCheckinRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,7 +31,7 @@ class CheckinRequest extends FormRequest
             'from_date' => 'date|required',
             'to_date' => 'date|required|after:from_date',
             'room_id' => 'integer|required',
-            'member_id' => ['integer','required', Rule::unique('checkins')->where('status', CheckinStatus::Active->value)->ignore($this->checkin)],
+            'member_id' => ['integer','required', Rule::unique('checkins')->where('status', CheckinStatus::Active->value)],
         ];
     }
 
