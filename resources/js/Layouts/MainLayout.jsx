@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { initFlowbite } from "flowbite";
 import NavLink from "@/Components/NavLink";
+import { Link } from "@inertiajs/react";
 
 const MainLayout = ({ children, user, pageTitle }) => {
     useEffect(() => {
@@ -120,13 +121,15 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                             </a>
                                         </li>
                                         <li>
-                                            <a
-                                                href="#"
+                                            <Link
+                                                href={route("logout")}
+                                                method="post"
+                                                as="button"
                                                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 role="menuitem"
                                             >
                                                 Sign out
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>

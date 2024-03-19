@@ -27,142 +27,142 @@ export default function Dashboard({ auth, response }) {
     //     },
     // ];
 
-    let series = []; // Define an empty array to store the series data
+    // let series = []; // Define an empty array to store the series data
 
-    response.memberBlock.forEach(function (block) {
-        let male = 0;
-        let female = 0;
-        const blockName = block.name;
-        let xdata = [];
+    // response.memberBlock.forEach(function (block) {
+    //     let male = 0;
+    //     let female = 0;
+    //     const blockName = block.name;
+    //     let xdata = [];
 
-        block.members.forEach(function (member) {
-            if (member.gender === "male") {
-                male += 1;
-            } else {
-                female += 1;
-            }
+    //     block.members.forEach(function (member) {
+    //         if (member.gender === "male") {
+    //             male += 1;
+    //         } else {
+    //             female += 1;
+    //         }
 
-            xdata.push({
-                x: blockName,
-                y: member.gender === "male" ? male : female,
-            });
+    //         xdata.push({
+    //             x: blockName,
+    //             y: member.gender === "male" ? male : female,
+    //         });
 
-            // Push the series data for male
-            if (member.gender === "male") {
-                series.push({
-                    name: "Male",
-                    color: "#1A56DB",
-                    data: xdata.filter((item) => item.y % 2 === 0), // filtering data for males
-                });
-            }
-        });
+    //         // Push the series data for male
+    //         if (member.gender === "male") {
+    //             series.push({
+    //                 name: "Male",
+    //                 color: "#1A56DB",
+    //                 data: xdata.filter((item) => item.y % 2 === 0), // filtering data for males
+    //             });
+    //         }
+    //     });
 
-        // Push the series data for male
-        series.push({
-            name: "Male",
-            color: "#1A56DB",
-            data: xdata.filter((item) => item.y % 2 === 0), // filtering data for males
-        });
+    //     // Push the series data for male
+    //     series.push({
+    //         name: "Male",
+    //         color: "#1A56DB",
+    //         data: xdata.filter((item) => item.y % 2 === 0), // filtering data for males
+    //     });
 
-        // Push the series data for female
-        series.push({
-            name: "Female",
-            color: "#FDBA8C",
-            data: xdata.filter((item) => item.y % 2 !== 0), // filtering data for females
-        });
-    });
+    //     // Push the series data for female
+    //     series.push({
+    //         name: "Female",
+    //         color: "#FDBA8C",
+    //         data: xdata.filter((item) => item.y % 2 !== 0), // filtering data for females
+    //     });
+    // });
 
-    console.log(series); // Output the generated series data
+    // console.log(series); // Output the generated series data
 
-    const options = {
-        colors: ["#1A56DB", "#FDBA8C"],
-        series: series,
-        chart: {
-            type: "bar",
-            height: "320px",
-            fontFamily: "Inter, sans-serif",
-            toolbar: {
-                show: false,
-            },
-        },
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: "70%",
-                borderRadiusApplication: "end",
-                borderRadius: 8,
-            },
-        },
-        tooltip: {
-            shared: true,
-            intersect: false,
-            style: {
-                fontFamily: "Inter, sans-serif",
-            },
-        },
-        states: {
-            hover: {
-                filter: {
-                    type: "darken",
-                    value: 1,
-                },
-            },
-        },
-        stroke: {
-            show: true,
-            width: 0,
-            colors: ["transparent"],
-        },
-        grid: {
-            show: false,
-            strokeDashArray: 4,
-            padding: {
-                left: 2,
-                right: 2,
-                top: -14,
-            },
-        },
-        dataLabels: {
-            enabled: false,
-        },
-        legend: {
-            show: false,
-        },
-        xaxis: {
-            floating: false,
-            labels: {
-                show: true,
-                style: {
-                    fontFamily: "Inter, sans-serif",
-                    cssClass:
-                        "text-xs font-normal fill-gray-500 dark:fill-gray-400",
-                },
-            },
-            axisBorder: {
-                show: false,
-            },
-            axisTicks: {
-                show: false,
-            },
-        },
-        yaxis: {
-            show: false,
-        },
-        fill: {
-            opacity: 1,
-        },
-    };
+    // const options = {
+    //     colors: ["#1A56DB", "#FDBA8C"],
+    //     series: series,
+    //     chart: {
+    //         type: "bar",
+    //         height: "320px",
+    //         fontFamily: "Inter, sans-serif",
+    //         toolbar: {
+    //             show: false,
+    //         },
+    //     },
+    //     plotOptions: {
+    //         bar: {
+    //             horizontal: false,
+    //             columnWidth: "70%",
+    //             borderRadiusApplication: "end",
+    //             borderRadius: 8,
+    //         },
+    //     },
+    //     tooltip: {
+    //         shared: true,
+    //         intersect: false,
+    //         style: {
+    //             fontFamily: "Inter, sans-serif",
+    //         },
+    //     },
+    //     states: {
+    //         hover: {
+    //             filter: {
+    //                 type: "darken",
+    //                 value: 1,
+    //             },
+    //         },
+    //     },
+    //     stroke: {
+    //         show: true,
+    //         width: 0,
+    //         colors: ["transparent"],
+    //     },
+    //     grid: {
+    //         show: false,
+    //         strokeDashArray: 4,
+    //         padding: {
+    //             left: 2,
+    //             right: 2,
+    //             top: -14,
+    //         },
+    //     },
+    //     dataLabels: {
+    //         enabled: false,
+    //     },
+    //     legend: {
+    //         show: false,
+    //     },
+    //     xaxis: {
+    //         floating: false,
+    //         labels: {
+    //             show: true,
+    //             style: {
+    //                 fontFamily: "Inter, sans-serif",
+    //                 cssClass:
+    //                     "text-xs font-normal fill-gray-500 dark:fill-gray-400",
+    //             },
+    //         },
+    //         axisBorder: {
+    //             show: false,
+    //         },
+    //         axisTicks: {
+    //             show: false,
+    //         },
+    //     },
+    //     yaxis: {
+    //         show: false,
+    //     },
+    //     fill: {
+    //         opacity: 1,
+    //     },
+    // };
 
-    if (
-        document.getElementById("gender-block-chart") &&
-        typeof ApexCharts !== "undefined"
-    ) {
-        const chart = new ApexCharts(
-            document.getElementById("gender-block-chart"),
-            options
-        );
-        chart.render();
-    }
+    // if (
+    //     document.getElementById("gender-block-chart") &&
+    //     typeof ApexCharts !== "undefined"
+    // ) {
+    //     const chart = new ApexCharts(
+    //         document.getElementById("gender-block-chart"),
+    //         options
+    //     );
+    //     chart.render();
+    // }
 
     return (
         <MainLayout user={auth.user} pageTitle={"Dashboard"}>
@@ -249,15 +249,6 @@ export default function Dashboard({ auth, response }) {
                             />
                         </svg>
                     </div>
-                </div>
-            </div>
-            <div className="mt-10 grid gap-4 lg:grid-cols-3 sm:grid-cols-1">
-                <div>
-                    <h2 className="text-xs font-bold text-gray-500 dark:text-white uppercase">
-                        Genders on blocks
-                    </h2>
-                    <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-                    <div id="gender-block-chart"></div>
                 </div>
             </div>
         </MainLayout>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\CheckinStatus;
 use App\Enums\RoomStatusEnum;
+use App\Exports\CheckinsExport;
+use App\Exports\CheckoutsExport;
 use App\Http\Requests\CheckinRequest;
 use App\Models\Checkin;
 use App\Models\Member;
@@ -11,9 +13,17 @@ use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CheckinController extends Controller
 {
+
+    public function export()
+    {
+        // dd('Here');
+        return Excel::download(new CheckinsExport, 'Checkins.xlsx');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -104,7 +114,6 @@ class CheckinController extends Controller
 
             DB::commit();
             return redirect()->route('checkins.index')->with('message', 'Checkin data changed successfully.');
-
         } catch (\Exception $e) {
 
             DB::rollBack();
@@ -119,6 +128,6 @@ class CheckinController extends Controller
     {
         $checkin->delete();
         Room::find($checkin->room_id)->update(['status' => RoomStatusEnum::Open->value]);
-        return redirect()->route('checkins.index')->with('message', 'Checkin data removed successfully.');  
+        return redirect()->route('checkins.index')->with('message', 'Checkin data removed successfully.');
     }
 }

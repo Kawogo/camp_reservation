@@ -11,21 +11,13 @@ enum CheckinStatus: string
     case Pending = 'pending';
     case Closed = 'closed';
 
-    public function getLabel(): ?string
+    public static function getLabel(CheckinStatus $status): ?string
     {
-        return match ($this) {
+        return match ($status) {
             self::Active => 'Active',
             self::Pending => 'Pending',
             self::Closed => 'Closed',
         };
     }
  
-    public function getColor(): string|array|null
-    {
-        return match ($this) {
-            self::Active => 'success',
-            self::Pending => 'warning',
-            self::Closed => 'danger',
-        };
-    }
 }

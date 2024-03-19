@@ -10,8 +10,12 @@ enum MemberTypeEnum: string
     case Temporary = 'tempo';
     case Visitor = 'visitor';
 
-    public function getLabel(): ?string
+    public static function getLabel(MemberTypeEnum $type): ?string
     {
-        return $this->name;
+        return match ($type) {
+            self::Permanent => 'Permanent',
+            self::Temporary => 'Temporary',
+            self::Visitor => 'Visitor',
+        };
     }
 }

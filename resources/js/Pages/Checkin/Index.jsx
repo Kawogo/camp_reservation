@@ -68,6 +68,21 @@ const Index = ({ auth, checkins, flash }) => {
                             </form>
                         </div>
                         <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                            <button
+                                // onClick={() => {
+                                //     window.open(
+                                //         route("checkins.export"),
+                                //         "_blank"
+                                //     );
+                                // }}
+                                onClick={() => {
+                                    window.location.href =
+                                        route("checkins.export");
+                                }}
+                                className="flex items-center justify-center text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-500 dark:hover:bg-green-600"
+                            >
+                                Export Checkins
+                            </button>
                             <Link
                                 href={route("checkins.create")}
                                 className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
@@ -132,7 +147,10 @@ const Index = ({ auth, checkins, flash }) => {
                                                         checkin.status
                                                     )}
                                                 >
-                                                    {checkin.status[0].toUpperCase() + checkin.status.substring(1)}
+                                                    {checkin.status[0].toUpperCase() +
+                                                        checkin.status.substring(
+                                                            1
+                                                        )}
                                                 </span>
                                             </td>
 
@@ -240,8 +258,7 @@ const Index = ({ auth, checkins, flash }) => {
                                     </p>
                                     <p class="mb-4 text-gray-500 dark:text-gray-300">
                                         Deleting this also deletes all data
-                                        related to this checkin on the
-                                        system.
+                                        related to this checkin on the system.
                                     </p>
 
                                     <div class="flex justify-center items-center space-x-4">
