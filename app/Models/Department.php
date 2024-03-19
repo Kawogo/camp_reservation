@@ -15,6 +15,11 @@ class Department extends Model
     public function members(): HasMany {
         return $this->hasMany(Member::class);
     }
+
+
+    public function sections(): HasMany {
+        return $this->hasMany(Section::class);
+    }
     
     public function company(): BelongsTo {
         return $this->belongsTo(Company::class);

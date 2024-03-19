@@ -10,6 +10,8 @@ use App\Models\Company;
 use App\Models\Department;
 use App\Models\Member;
 use App\Models\Room;
+use App\Models\Roster;
+use App\Models\Section;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +33,7 @@ class DatabaseSeeder extends Seeder
         Block::factory()->create();
         Room::factory()->create();
         Department::factory()->create();
-        Member::factory()->create();
+        Section::factory()->create();
+        Member::factory(2)->create();
     }
 }

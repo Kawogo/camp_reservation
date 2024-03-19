@@ -24,14 +24,13 @@ class CheckoutRequest extends FormRequest
      */
     public function rules(): array
     {
-        $room_id = Checkin::where(['member_id' => $this->member_id, 'status' => CheckinStatus::Active->value])->first('room_id')->room_id;
-
+    
         return [
             // 'room_id' => 'required|int',
             'period_offsite' => 'integer|required',
             'leave_date' => 'date|required',
             'return_date' => 'date|required|after:leave_date',
-            'member_id' => ['integer','required', Rule::unique('checkins', 'member_id')->where('status', CheckinStatus::Closed->value)->where('room_id', $room_id)],
+            'member_id' => ['integer','required'],
         ];
     }
 

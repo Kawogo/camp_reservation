@@ -25,7 +25,14 @@ class MemberFactory extends Factory
             'department_id' => 1,
             'room_id' => 1,
             'block_id' => 1,
+            'roster' => '6X3',
             'camp_id' => 1,
+            'section_id' => 1,
+            'level' => 1,
+            'engagement_date' => now(),
+            'gender' => 'male',
+            'cost_code' => '904060',
+            'email' => 'sample@email.com',
         ];
     }
 }

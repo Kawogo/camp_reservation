@@ -8,6 +8,7 @@ enum MemberTypeEnum: string
 {
     case Permanent = 'permanent';
     case Temporary = 'tempo';
+    case Visitor = 'visitor';
 
     public function getLabel(): ?string
     {

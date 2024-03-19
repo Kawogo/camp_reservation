@@ -25,15 +25,22 @@ class MemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'room_id' => 'integer|required', 
-            'company_id' => 'integer|required', 
-            'department_id' => 'integer|required', 
-            'name' => 'string|required', 
-            'phone' => ['string','required', Rule::unique('members','phone')->ignore($this->member)],
-            'id_number' => ['string','required', Rule::unique('members','id_number')->ignore($this->member)],
-            'type' => ['required', new Enum(MemberTypeEnum::class)], 
-            'block_id' => 'integer|required', 
-            'camp_id' =>'integer|required', 
+            'room_id' => 'integer|required',
+            'company_id' => 'integer|required',
+            'department_id' => 'integer|required',
+            'name' => 'string|required',
+            'phone' => ['string', 'required', Rule::unique('members', 'phone')->ignore($this->member)],
+            'id_number' => ['string', 'required', Rule::unique('members', 'id_number')->ignore($this->member)],
+            'type' => ['required', new Enum(MemberTypeEnum::class)],
+            'block_id' => 'integer|required',
+            'camp_id' => 'integer|required',
+            'section_id' => 'integer|required',
+            'email' => 'string|required',
+            'gender' => 'string|required',
+            'cost_code' => 'string|required',
+            'level' => 'string|required',
+            'roster' => 'string|required',
+            'engagement_date' => 'date|required',
         ];
     }
 }

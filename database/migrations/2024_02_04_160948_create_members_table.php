@@ -18,9 +18,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('id_number');
             $table->string('type')->default(MemberTypeEnum::Temporary);
+            $table->string('email');
             $table->string('phone');
+            $table->string('gender');
+            $table->string('cost_code');
+            $table->string('level');
+            $table->string('roster');
+            $table->date('engagement_date');
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete()->nullable();
             $table->foreignId('department_id')->constrained('departments')->cascadeOnDelete()->nullable();
+            $table->foreignId('section_id')->constrained('sections')->cascadeOnDelete()->nullable();
             $table->foreignId('camp_id')->constrained('camps')->cascadeOnDelete()->nullable();
             $table->foreignId('block_id')->constrained('blocks')->cascadeOnDelete()->nullable();
             $table->foreignId('room_id')->cascadeOnDelete()->nullable();

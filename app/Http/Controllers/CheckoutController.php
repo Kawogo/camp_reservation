@@ -9,6 +9,7 @@ use App\Models\Checkin;
 use App\Models\Checkout;
 use App\Models\Member;
 use App\Models\Room;
+use App\Services\CheckoutService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -29,7 +30,7 @@ class CheckoutController extends Controller
     public function create()
     {
         $response = [
-            'members' => Member::all(['id', 'name']),
+            'members' => Member::whereRelation('checkins', 'status' , CheckinStatus::Active->value)->get(['id', 'name']),
         ];
         return Inertia::render('Checkout/CreateCheckout', ['response' => $response]);
     }
@@ -37,7 +38,7 @@ class CheckoutController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CheckoutRequest $request)
+    public function store(CheckoutRequest $request, CheckoutService $service)
     {
         try {
             DB::beginTransaction();
@@ -62,6 +63,13 @@ class CheckoutController extends Controller
                     ]
                 );
                 Room::where('id', '=', $isActiveBooking->room_id)->update(['status' => RoomStatusEnum::Open->value]);
+
+
+                // send message
+                $member = Member::find($request->validated('member_id'));
+                // dd($member->phone);
+                $service->sendSMS($member, Room::where('id', '=', $isActiveBooking->room_id)->first('number')->number);
+
             }
 
             DB::commit();

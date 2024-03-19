@@ -5,17 +5,23 @@ import { Link, useForm } from "@inertiajs/react";
 import React from "react";
 
 const EditMember = ({ auth, response }) => {
-    console.log(response);
     const { data, setData, put, processing, errors, reset } = useForm({
         name: response.member.name,
         id_number: response.member.id_number,
         type: response.member.type,
         phone: response.member.phone,
+        gender: response.member.gender,
+        email: response.member.email,
+        cost_code: response.member.cost_code,
+        level: response.member.level,
+        roster: response.member.roster,
+        engagement_date: response.member.engagement_date,
         company_id: response.member.company.id,
         department_id: response.member.department.id,
         camp_id: response.member.camp.id,
         block_id: response.member.block.id,
         room_id: response.member.room.id,
+        section_id: response.member.section_id,
     });
 
     const companiesOpts = response.companies.map(function (company) {
@@ -33,6 +39,18 @@ const EditMember = ({ auth, response }) => {
         .map(function (camp) {
             return { value: camp.id, label: camp.name };
         });
+
+    const sectionsOpts = response.departments
+        .filter((dep) => dep.id === data.department_id)[0]
+        ?.sections.map(function (sect) {
+            return { value: sect.id, label: sect.name };
+        });
+
+    const defaultSectionsOpts = response.departments.map((dep) =>
+        dep?.sections.map(function (sect) {
+            return { value: sect.id, label: sect.name };
+        })
+    );
 
     const blocksOpts = response.blocks
         .filter((item) => item.camp_id === data.camp_id)
@@ -149,6 +167,40 @@ const EditMember = ({ auth, response }) => {
 
                                 <div class="w-full">
                                     <label
+                                        for="gender"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Gender
+                                    </label>
+                                    <Select
+                                        defaultValue={[
+                                            {
+                                                value: data.gender,
+                                                label:
+                                                    data.gender[0].toUpperCase() +
+                                                    data.gender.substring(1),
+                                            },
+                                        ]}
+                                        options={[
+                                            { value: "male", label: "Male" },
+                                            {
+                                                value: "female",
+                                                label: "Female",
+                                            },
+                                        ]}
+                                        onChange={(choice) =>
+                                            setData("gender", choice.value)
+                                        }
+                                        styles={SelectStyles}
+                                    />
+                                    {errors.gender && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.gender}
+                                        </p>
+                                    )}
+                                </div>
+                                <div class="w-full">
+                                    <label
                                         for="employment_type"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
@@ -169,6 +221,10 @@ const EditMember = ({ auth, response }) => {
                                             {
                                                 value: "tempo",
                                                 label: "Temporary",
+                                            },
+                                            {
+                                                value: "visitor",
+                                                label: "Visitor",
                                             },
                                         ]}
                                         onChange={(choice) =>
@@ -240,6 +296,112 @@ const EditMember = ({ auth, response }) => {
                                         for="employment_type"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
+                                        Email
+                                    </label>
+                                    <input
+                                        defaultValue={data.email}
+                                        onChange={(e) =>
+                                            setData("email", e.target.value)
+                                        }
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Email"
+                                        required=""
+                                    />
+                                    {errors.email && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.email}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Code
+                                    </label>
+                                    <input
+                                        defaultValue={data.cost_code}
+                                        onChange={(e) =>
+                                            setData("cost_code", e.target.value)
+                                        }
+                                        type="text"
+                                        name="cost_code"
+                                        id="cost_code"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Member cost_code"
+                                        required=""
+                                    />
+                                    {errors.cost_code && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.cost_code}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Roster
+                                    </label>
+                                    <input
+                                        defaultValue={data.roster}
+                                        onChange={(e) =>
+                                            setData("roster", e.target.value)
+                                        }
+                                        type="text"
+                                        name="roster"
+                                        id="roster"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Member roster"
+                                        required=""
+                                    />
+                                    {errors.roster && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.roster}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Engagment Date
+                                    </label>
+                                    <input
+                                        onChange={(e) =>
+                                            setData(
+                                                "engagement_date",
+                                                e.target.value
+                                            )
+                                        }
+                                        type="date"
+                                        name="engagement_date"
+                                        id="engagement_date"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Engagment Date"
+                                        required=""
+                                    />
+                                    {errors.engagement_date && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.engagement_date}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
                                         Company
                                     </label>
                                     <Select
@@ -285,6 +447,31 @@ const EditMember = ({ auth, response }) => {
                                     {errors.department_id && (
                                         <p class="mt-2 text-sm text-red-600 dark:text-red-500">
                                             {errors.department_id}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Section
+                                    </label>
+                                    <Select
+                                        defaultValue={defaultSectionsOpts[0].find(
+                                            (item) =>
+                                                item.value === data.section_id
+                                        )}
+                                        options={sectionsOpts}
+                                        onChange={(choice) =>
+                                            setData("section_id", choice.value)
+                                        }
+                                        styles={SelectStyles}
+                                    />
+                                    {errors.section_id && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.section_id}
                                         </p>
                                     )}
                                 </div>

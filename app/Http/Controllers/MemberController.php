@@ -19,7 +19,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Member/Index', ['members' => Member::with(['company:id,name', 'department:id,name', 'camp:id,name','block:id,name', 'room:id,number'])->paginate(10)]);
+        return Inertia::render('Member/Index', ['members' => Member::with(['company:id,name', 'department:id,name', 'camp:id,name', 'block:id,name', 'room:id,number'])->paginate(10)]);
     }
 
     /**
@@ -29,7 +29,7 @@ class MemberController extends Controller
     {
         $data = [
             'companies' => Company::all(['id', 'name']),
-            'departments' => Department::all(['id', 'name', 'company_id']),
+            'departments' => Department::with('sections')->get(['id', 'name', 'company_id']),
             'camps' => Camp::all(['id', 'name', 'company_id']),
             'blocks' => Block::all(['id', 'name', 'camp_id']),
             'rooms' => Room::all(['id', 'number', 'block_id']),
@@ -51,7 +51,7 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        //
+        return Inertia::render('Member/MemberDetails', ['member' => $member->load(['company:id,name', 'department:id,name', 'department.sections:id,name,department_id', 'camp:id,name', 'block:id,name', 'room:id,number'])]);
     }
 
     /**
@@ -61,11 +61,11 @@ class MemberController extends Controller
     {
         $data = [
             'companies' => Company::all(['id', 'name']),
-            'departments' => Department::all(['id', 'name', 'company_id']),
+            'departments' => Department::with('sections')->get(['id', 'name', 'company_id']),
             'camps' => Camp::all(['id', 'name', 'company_id']),
             'blocks' => Block::all(['id', 'name', 'camp_id']),
             'rooms' => Room::all(['id', 'number', 'block_id']),
-            'member' => $member->load(['company:id,name', 'department:id,name', 'camp:id,name','block:id,name', 'room:id,number'])
+            'member' => $member->load(['company:id,name', 'department:id,name', 'camp:id,name', 'block:id,name', 'room:id,number'])
         ];
         return Inertia::render('Member/EditMember', ['response' => $data]);
     }

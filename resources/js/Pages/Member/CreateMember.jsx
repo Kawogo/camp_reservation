@@ -5,14 +5,21 @@ import { Link, useForm } from "@inertiajs/react";
 import React from "react";
 
 const CreateMember = ({ auth, response }) => {
-    console.log(response);
+    console.log(response.departments);
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         id_number: null,
-        type: "",
+        type: "tempo",
         phone: "",
+        gender: "",
+        email: "",
+        cost_code: "",
+        level: "",
+        roster: "",
+        engagement_date: "",
         company_id: null,
         department_id: null,
+        section_id: null,
         camp_id: null,
         block_id: null,
         room_id: null,
@@ -22,23 +29,38 @@ const CreateMember = ({ auth, response }) => {
         return { value: company.id, label: company.name };
     });
 
-    const departmentsOpts = response.departments.filter((item) => item.company_id === data.company_id).map(function (depart) {
-        return { value: depart.id, label: depart.name };
-    });
+    const departmentsOpts = response.departments
+        .filter((item) => item.company_id === data.company_id)
+        .map(function (depart) {
+            return { value: depart.id, label: depart.name };
+        });
 
-    const campsOpts = response.camps.filter((item) => item.company_id === data.company_id).map(function (camp) {
-        return { value: camp.id, label: camp.name };
-    });
+    const sectionsOpts = response.departments
+        .filter((dep) => dep.id === data.department_id)[0]
+        ?.sections.map(function (sect) {
+            return { value: sect.id, label: sect.name };
+        });
 
-    const blocksOpts = response.blocks.filter((item) => item.camp_id === data.camp_id).map(function (block) {
-        return { value: block.id, label: block.name };
-    });
-    
-    const roomsOpts = response.rooms.filter((item) => item.block_id === data.block_id).map(function (room) {
-        return { value: room.id, label: room.number };
-    });
+    const campsOpts = response.camps
+        .filter((item) => item.company_id === data.company_id)
+        .map(function (camp) {
+            return { value: camp.id, label: camp.name };
+        });
+
+    const blocksOpts = response.blocks
+        .filter((item) => item.camp_id === data.camp_id)
+        .map(function (block) {
+            return { value: block.id, label: block.name };
+        });
+
+    const roomsOpts = response.rooms
+        .filter((item) => item.block_id === data.block_id)
+        .map(function (room) {
+            return { value: room.id, label: room.number };
+        });
 
     function submit(e) {
+        console.log(data);
         e.preventDefault();
         post("/members");
     }
@@ -137,6 +159,33 @@ const CreateMember = ({ auth, response }) => {
 
                                 <div class="w-full">
                                     <label
+                                        for="gender"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Gender
+                                    </label>
+                                    <Select
+                                        options={[
+                                            { value: "male", label: "Male" },
+                                            {
+                                                value: "female",
+                                                label: "Female",
+                                            },
+                                        ]}
+                                        onChange={(choice) =>
+                                            setData("gender", choice.value)
+                                        }
+                                        styles={SelectStyles}
+                                    />
+                                    {errors.gender && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.gender}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
                                         for="employment_type"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
@@ -148,8 +197,18 @@ const CreateMember = ({ auth, response }) => {
                                             label: "Temporary",
                                         }}
                                         options={[
-                                            { value: "permanent", label: "Permanent" },
-                                            { value: "tempo", label: "Temporary" },
+                                            {
+                                                value: "permanent",
+                                                label: "Permanent",
+                                            },
+                                            {
+                                                value: "tempo",
+                                                label: "Temporary",
+                                            },
+                                            {
+                                                value: "visitor",
+                                                label: "Visitor",
+                                            },
                                         ]}
                                         onChange={(choice) =>
                                             setData("type", choice.value)
@@ -212,7 +271,109 @@ const CreateMember = ({ auth, response }) => {
                                         </p>
                                     )}
                                 </div>
-                                
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Email
+                                    </label>
+                                    <input
+                                        onChange={(e) =>
+                                            setData("email", e.target.value)
+                                        }
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Email"
+                                        required=""
+                                    />
+                                    {errors.email && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.email}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Code
+                                    </label>
+                                    <input
+                                        onChange={(e) =>
+                                            setData("code", e.target.value)
+                                        }
+                                        type="text"
+                                        name="code"
+                                        id="code"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Member code"
+                                        required=""
+                                    />
+                                    {errors.code && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.code}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Roster
+                                    </label>
+                                    <input
+                                        onChange={(e) =>
+                                            setData("roster", e.target.value)
+                                        }
+                                        type="text"
+                                        name="roster"
+                                        id="roster"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Member roster"
+                                        required=""
+                                    />
+                                    {errors.roster && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.roster}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Engagment Date
+                                    </label>
+                                    <input
+                                        onChange={(e) =>
+                                            setData(
+                                                "engagement_date",
+                                                e.target.value
+                                            )
+                                        }
+                                        type="date"
+                                        name="engagement_date"
+                                        id="engagement_date"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Engagment Date"
+                                        required=""
+                                    />
+                                    {errors.engagement_date && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.engagement_date}
+                                        </p>
+                                    )}
+                                </div>
 
                                 <div class="w-full">
                                     <label
@@ -235,7 +396,6 @@ const CreateMember = ({ auth, response }) => {
                                     )}
                                 </div>
 
-
                                 <div class="w-full">
                                     <label
                                         for="employment_type"
@@ -246,13 +406,37 @@ const CreateMember = ({ auth, response }) => {
                                     <Select
                                         options={departmentsOpts}
                                         onChange={(choice) =>
-                                            setData("department_id", choice.value)
+                                            setData(
+                                                "department_id",
+                                                choice.value
+                                            )
                                         }
                                         styles={SelectStyles}
                                     />
                                     {errors.department_id && (
                                         <p class="mt-2 text-sm text-red-600 dark:text-red-500">
                                             {errors.department_id}
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div class="w-full">
+                                    <label
+                                        for="employment_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Section
+                                    </label>
+                                    <Select
+                                        options={sectionsOpts}
+                                        onChange={(choice) =>
+                                            setData("section_id", choice.value)
+                                        }
+                                        styles={SelectStyles}
+                                    />
+                                    {errors.section_id && (
+                                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                                            {errors.section_id}
                                         </p>
                                     )}
                                 </div>

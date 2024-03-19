@@ -10,7 +10,7 @@ const MainLayout = ({ children, user, pageTitle }) => {
     return (
         <>
             <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                <div className="px-3 py-3 lg:px-5 lg:pl-3">
+                <div className="px-3 py-1 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center justify-start rtl:justify-end">
                             <button
@@ -138,18 +138,18 @@ const MainLayout = ({ children, user, pageTitle }) => {
 
             <aside
                 id="logo-sidebar"
-                className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+                className="fixed top-0 left-0 z-40 w-52 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
                 aria-label="Sidebar"
             >
-                <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-                    <ul className="space-y-2 font-medium text-sm">
+                <div className="h-full px-2 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+                    <ul className="space-y-2 font-medium text-xs">
                         <li>
                             <NavLink
                                 active={route().current("dashboard")}
                                 href={route("dashboard")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -173,9 +173,11 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                 href={route("companies.index")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                 >
@@ -184,7 +186,7 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
-                                        d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5"
+                                        d="M6 4h12M6 4v16M6 4H5m13 0v16m0-16h1m-1 16H6m12 0h1M6 20H5M9 7h1v1H9V7Zm5 0h1v1h-1V7Zm-5 4h1v1H9v-1Zm5 0h1v1h-1v-1Zm-3 4h2a1 1 0 0 1 1 1v4h-4v-4a1 1 0 0 1 1-1Z"
                                     />
                                 </svg>
                                 <span className="ms-3">Company</span>
@@ -197,9 +199,37 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                 href={route("departments.index")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-width="2"
+                                        d="M20 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6h-2m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4"
+                                    />
+                                </svg>
+
+                                <span className="ms-3">Departments</span>
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink
+                                active={route().current("sections*")}
+                                href={route("sections.index")}
+                            >
+                                <svg
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                 >
@@ -208,10 +238,11 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
-                                        d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5"
+                                        d="m8.032 12 1.984 1.984 4.96-4.96m4.55 5.272.893-.893a1.984 1.984 0 0 0 0-2.806l-.893-.893a1.984 1.984 0 0 1-.581-1.403V7.04a1.984 1.984 0 0 0-1.984-1.984h-1.262a1.983 1.983 0 0 1-1.403-.581l-.893-.893a1.984 1.984 0 0 0-2.806 0l-.893.893a1.984 1.984 0 0 1-1.403.581H7.04A1.984 1.984 0 0 0 5.055 7.04v1.262c0 .527-.209 1.031-.581 1.403l-.893.893a1.984 1.984 0 0 0 0 2.806l.893.893c.372.372.581.876.581 1.403v1.262a1.984 1.984 0 0 0 1.984 1.984h1.262c.527 0 1.031.209 1.403.581l.893.893a1.984 1.984 0 0 0 2.806 0l.893-.893a1.985 1.985 0 0 1 1.403-.581h1.262a1.984 1.984 0 0 0 1.984-1.984V15.7c0-.527.209-1.031.581-1.403Z"
                                     />
                                 </svg>
-                                <span className="ms-3">Departments</span>
+
+                                <span className="ms-3">Sections</span>
                             </NavLink>
                         </li>
 
@@ -221,7 +252,7 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                 href={route("camps.index")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -245,7 +276,7 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                 href={route("blocks.index")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -269,9 +300,11 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                 href={route("rooms.index")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                 >
@@ -280,32 +313,36 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
-                                        d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5"
+                                        d="M15 5v14M9 5v14M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
                                     />
                                 </svg>
+
                                 <span className="ms-3">Rooms</span>
                             </NavLink>
                         </li>
+
                         <li>
                             <NavLink
                                 active={route().current("members*")}
                                 href={route("members.index")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                 >
                                     <path
                                         stroke="currentColor"
                                         stroke-linecap="round"
-                                        stroke-linejoin="round"
                                         stroke-width="2"
-                                        d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5"
+                                        d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
                                     />
                                 </svg>
+
                                 <span className="ms-3">Members</span>
                             </NavLink>
                         </li>
@@ -316,9 +353,11 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                 href={route("checkins.index")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                 >
@@ -327,9 +366,10 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
-                                        d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5"
+                                        d="m15.141 6 5.518 4.95a1.05 1.05 0 0 1 0 1.549l-5.612 5.088m-6.154-3.214v1.615a.95.95 0 0 0 1.525.845l5.108-4.251a1.1 1.1 0 0 0 0-1.646l-5.108-4.251a.95.95 0 0 0-1.525.846v1.7c-3.312 0-6 2.979-6 6.654v1.329a.7.7 0 0 0 1.344.353 5.174 5.174 0 0 1 4.652-3.191l.004-.003Z"
                                     />
                                 </svg>
+
                                 <span className="ms-3">Checkins</span>
                             </NavLink>
                         </li>
@@ -340,9 +380,11 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                 href={route("checkouts.index")}
                             >
                                 <svg
-                                    class="w-5 h-5 text-gray-800 dark:text-white"
+                                    class="w-4 h-4 text-gray-800 dark:text-white"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                 >
@@ -351,9 +393,10 @@ const MainLayout = ({ children, user, pageTitle }) => {
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
-                                        d="m4 12 8-8 8 8M6 10.5V19c0 .6.4 1 1 1h3v-3c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v3h3c.6 0 1-.4 1-1v-8.5"
+                                        d="M8.757 6 3.24 10.95a1.05 1.05 0 0 0 0 1.549l5.611 5.088m5.73-3.214v1.615a.948.948 0 0 1-1.524.845l-5.108-4.251a1.1 1.1 0 0 1 0-1.646l5.108-4.251a.95.95 0 0 1 1.524.846v1.7c3.312 0 6 2.979 6 6.654v1.329a.7.7 0 0 1-1.345.353 5.174 5.174 0 0 0-4.652-3.191l-.003-.003Z"
                                     />
                                 </svg>
+
                                 <span className="ms-3">Checkouts</span>
                             </NavLink>
                         </li>
@@ -361,10 +404,10 @@ const MainLayout = ({ children, user, pageTitle }) => {
                 </div>
             </aside>
 
-            <div className="p-4 sm:ml-64">
-                <div className="p-4 mt-10">
+            <div className="p-1 sm:ml-60">
+                <div className="p-2 mt-10">
                     <div className="">
-                        <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                        <h2 className="mb-4 text-sm font-bold text-gray-900 dark:text-white">
                             {pageTitle}
                         </h2>
                     </div>
