@@ -169,7 +169,7 @@ export default function Dashboard({ auth, response }) {
             <div className="grid gap-4 lg:grid-cols-3 sm:grid-cols-1">
                 <div className="bg-white w-full border p-4 rounded-lg flex flex-row justify-between items-center">
                     <div className="flex flex-col">
-                        <span className="text-xs font-semibold text-gray-400">
+                        <span className="text-xs font-bold text-gray-400">
                             Departments
                         </span>
                         <span className="text-lg font-semibold text-red-600">
@@ -197,7 +197,7 @@ export default function Dashboard({ auth, response }) {
                 </div>
                 <div className="bg-white w-full border p-4 rounded-lg flex flex-row justify-between items-center">
                     <div className="flex flex-col">
-                        <span className="text-xs font-semibold text-gray-400">
+                        <span className="text-xs font-bold text-gray-400">
                             Camps
                         </span>
                         <span className="text-lg font-semibold text-green-600">
@@ -224,7 +224,7 @@ export default function Dashboard({ auth, response }) {
                 </div>
                 <div className="bg-white w-full border p-4 rounded-lg flex flex-row justify-between items-center">
                     <div className="flex flex-col">
-                        <span className="text-xs font-semibold text-gray-400">
+                        <span className="text-xs font-bold text-gray-400">
                             Members
                         </span>
                         <span className="text-lg font-semibold text-blue-600">
@@ -251,6 +251,30 @@ export default function Dashboard({ auth, response }) {
                     </div>
                 </div>
             </div>
+
+            {/* <div className="mt-10">
+                <h2 className="text-xs font-bold text-gray-700 dark:text-white">
+                    Quick Reports
+                </h2>
+                <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                <form>
+                    <div className="grid gap-4 lg:grid-cols-5 sm:grid-cols-1">
+                        <div className="w-full">
+                            <input
+                                type="date"
+                                name="from_date"
+                                id="from_date"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="From"
+                                required=""
+                            />
+                        </div>
+                        <button className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 font-xs rounded-md px-2 text-xs py-1.5 dark:bg-primary-600 dark:hover:bg-primary-700">
+                            Get Report
+                        </button>
+                    </div>
+                </form>
+            </div> */}
         </MainLayout>
     );
 }
