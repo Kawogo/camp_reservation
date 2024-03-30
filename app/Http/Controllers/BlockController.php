@@ -41,7 +41,7 @@ class BlockController extends Controller
      */
     public function show(Block $block)
     {
-        //
+        return Inertia::render('Block/BlockDetails', ['block' => $block->load('rooms')]);
     }
 
     /**

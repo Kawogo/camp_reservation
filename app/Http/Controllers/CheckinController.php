@@ -35,12 +35,13 @@ class CheckinController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(?int $room_id = null)
     {
         $response = [
             'members' => Member::all(['id', 'name']),
             'rooms' => Room::where('status', '=', RoomStatusEnum::Open->value)->get(['id', 'number']),
-            'status' => CheckinStatus::cases()
+            'status' => CheckinStatus::cases(),
+            'room_id' => $room_id
         ];
         return Inertia::render('Checkin/CreateCheckin', ['response' => $response]);
     }

@@ -61,7 +61,9 @@ Route::middleware('auth')->group(function () {
 
     // Checkins
     Route::get('/checkins/export', [CheckinController::class, 'export'])->name('checkins.export');
-    Route::resource('/checkins', CheckinController::class);
+    Route::resource('/checkins', CheckinController::class)->except('create');
+    Route::get('/checkins/create/{room_id?}', [CheckinController::class, 'create'])->name('checkins.create');
+
 
     // Checkins
     Route::resource('/checkouts', CheckoutController::class);

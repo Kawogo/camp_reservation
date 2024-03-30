@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CampRequest;
 use App\Models\Camp;
 use App\Models\Company;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +16,7 @@ class CampController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Camp/Index', ['camps' => Camp::with('company:id,name')->paginate(10)]);
+        return Inertia::render('Camp/Index', ['camps' => Camp::withCount('blocks')->paginate(10)]);
     }
 
     /**
@@ -24,7 +25,6 @@ class CampController extends Controller
     public function create()
     {
         return Inertia::render('Camp/CreateCamp', ['companies' => Company::all()]);
-    
     }
 
     /**
@@ -41,7 +41,7 @@ class CampController extends Controller
      */
     public function show(Camp $camp)
     {
-        //
+        return Inertia::render('Camp/CampDetails', ['camp' => $camp->load('blocks.rooms')]);
     }
 
     /**
@@ -49,7 +49,7 @@ class CampController extends Controller
      */
     public function edit(Camp $camp)
     {
-        return Inertia::render('Camp/EditCamp', ['camp' => $camp, 'companies' => Company::all()]);   
+        return Inertia::render('Camp/EditCamp', ['camp' => $camp, 'companies' => Company::all()]);
     }
 
     /**

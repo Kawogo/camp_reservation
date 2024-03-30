@@ -11,7 +11,7 @@ const CreateCheckin = ({ auth, response }) => {
         to_date: null,
         status: "",
         member_id: null,
-        room_id: null
+        room_id: response?.room_id || null,
     });
 
     const membersOpts = response.members.map(function (member) {
@@ -22,12 +22,16 @@ const CreateCheckin = ({ auth, response }) => {
         return { value: room.id, label: room.number };
     });
 
-    const statusOpts = response.status.filter((item) => item !== 'closed').map(function (status) {
-        return { value: status, label: status[0].toUpperCase() + status.substring(1) };
-    });
+    const statusOpts = response.status
+        .filter((item) => item !== "closed")
+        .map(function (status) {
+            return {
+                value: status,
+                label: status[0].toUpperCase() + status.substring(1),
+            };
+        });
 
     function submit(e) {
-        console.log(data);
         e.preventDefault();
         post("/checkins");
     }
@@ -99,12 +103,12 @@ const CreateCheckin = ({ auth, response }) => {
                             aria-labelledby="create-leave-details-tab"
                         >
                             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                            <div class="w-full">
+                                <div class="w-full">
                                     <label
                                         for="employment_type"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
-                                       Member
+                                        Member
                                     </label>
                                     <Select
                                         options={membersOpts}
@@ -124,9 +128,13 @@ const CreateCheckin = ({ auth, response }) => {
                                         for="employment_type"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
-                                       Room
+                                        Room
                                     </label>
                                     <Select
+                                        defaultValue={roomOpts.find(
+                                            (item) =>
+                                                item.value === response?.room_id
+                                        )}
                                         options={roomOpts}
                                         onChange={(choice) =>
                                             setData("room_id", choice.value)

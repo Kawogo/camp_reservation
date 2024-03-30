@@ -26,8 +26,8 @@ class Room extends Model
         return $this->hasOne(Member::class);
     }
 
-    public function bookings(): HasMany {
-        return $this->hasMany(Booking::class);
+    public function checkins(): HasMany {
+        return $this->hasMany(Checkin::class);
     }
 
     public function scopeAvailableRooms($query) {

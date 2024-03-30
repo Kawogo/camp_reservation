@@ -5,7 +5,7 @@ import { Link, router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 
 const Index = ({ auth, camps, flash }) => {
-    
+
     const [camp, setCamp] = useState(null);
 
     // CRUD
@@ -13,6 +13,7 @@ const Index = ({ auth, camps, flash }) => {
         router.delete(route("camps.destroy", camp));
     };
 
+    // const totalRooms
 
     return (
         <MainLayout user={auth.user} pageTitle={"Camps"}>
@@ -20,56 +21,9 @@ const Index = ({ auth, camps, flash }) => {
                 {flash && flash.message && (
                     <FlashMessage message={flash.message} />
                 )}
-                <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-                    <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                        <div className="w-full md:w-1/2 sm:w-full">
-                            <form className="flex gap-2 items-center">
-                                <label
-                                    htmlFor="simple-search"
-                                    className="sr-only"
-                                >
-                                    Search
-                                </label>
-                                <div className="relative w-1/2 md:w-1/2 sm:w-full">
-                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg
-                                            aria-hidden="true"
-                                            className="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        id="simple-search"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Search"
-                                        required=""
-                                    />
-                                </div>
-                                <button className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                                    Search
-                                </button>
-                            </form>
-                        </div>
-                        <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                            <Link
-                                href={route('camps.create')}
-                                className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-                            >
-                                Add New Camp
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <div className="">
+                    <div className="">
+                        {/* <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" className="px-4 py-3">
@@ -153,7 +107,57 @@ const Index = ({ auth, camps, flash }) => {
                                     );
                                 })}
                             </tbody>
-                        </table>
+                        </table> */}
+                        <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                            <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                                <Link
+                                    href={route("camps.create")}
+                                    className="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                                >
+                                    Add New Camp
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="grid gap-4 sm:grid-cols-3 sm:gap-6">
+                            {camps.data.map((camp, index) => (
+                                <div className="w-full border p-4 flex flex-col items-center space-y-10">
+                                    <div className="flex flex-col items-center space-y-2">
+                                        <h6 className="capitalize text-xl font-bold text-center">
+                                           {index + 1}.{camp.name}
+                                        </h6>
+
+                                        <p className="font-semibold">
+                                            Total Blocks: {camp.blocks_count}
+                                        </p>
+                                    </div>
+
+                                    <div className="flex justify-center items-center space-x-4">
+                                        <Link
+                                            href={route("camps.show", camp)}
+                                            class="py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-900"
+                                        >
+                                            View
+                                        </Link>
+
+                                        <Link
+                                            href={route("camps.edit", camp)}
+                                            class="py-2 px-3 text-sm font-medium text-center text-white bg-primary-600 rounded-lg hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-500 dark:hover:bg-primary-600 dark:focus:ring-primary-900"
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button
+                                            onClick={() => setCamp(camp)}
+                                            data-modal-target="deleteModal"
+                                            data-modal-toggle="deleteModal"
+                                            type="button"
+                                            class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                         {/* delete modal */}
                         <div
                             id="deleteModal"
@@ -223,14 +227,6 @@ const Index = ({ auth, camps, flash }) => {
                                 </div>
                             </div>
                         </div>
-
-   
-                        <Pagination
-                            links={camps.links}
-                            from={camps.from}
-                            to={camps.to}
-                            total={camps.total}
-                        />
                     </div>
                 </div>
             </div>
