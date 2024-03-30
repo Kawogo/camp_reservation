@@ -37,7 +37,7 @@ class MemberRequest extends FormRequest
             'section_id' => 'integer|required',
             'email' => 'string|required',
             'gender' => 'string|required',
-            'cost_code' => 'string|required',
+            'cost_code' => 'integer|required',
             'level' => 'string|required',
             'roster' => 'string|required',
             'engagement_date' => 'date|required',
