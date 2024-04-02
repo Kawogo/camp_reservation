@@ -56,7 +56,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('/rooms', RoomController::class);
 
     // Members
-    Route::resource('/members', MemberController::class);
+    // Route::resource('/members', MemberController::class);
+    Route::get('/members/import', [MemberController::class, 'import'])->name('members.import');
+    Route::post('/members/upload', [MemberController::class, 'upload'])->name('members.upload');
+    Route::get('/members/create', [MemberController::class, 'create'])->name('members.create');
+    Route::post('/members', [MemberController::class, 'store'])->name('members.store');
+    Route::get('/members/{member}/edit', [MemberController::class, 'edit'])->name('members.edit');
+    Route::put('/members/{member}', [MemberController::class, 'update'])->name('members.update');
+    Route::delete('/members/{member}', [MemberController::class, 'destroy'])->name('members.destroy');
+    Route::get('/members/{member}', [MemberController::class, 'show'])->name('members.show');
+    Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+
+
 
 
     // Checkins

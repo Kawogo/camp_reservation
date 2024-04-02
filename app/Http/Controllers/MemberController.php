@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MemberRequest;
+use App\Imports\MembersImport;
 use App\Models\Block;
 use App\Models\Camp;
 use App\Models\Company;
@@ -11,9 +12,22 @@ use App\Models\Member;
 use App\Models\Room;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MemberController extends Controller
 {
+    public function upload(Request $request) 
+    {
+        Excel::import(new MembersImport, request()->file('members'));
+        
+        return redirect()->route('members.index')->with('message', 'Member data imported successfully.');
+
+    }
+
+    public function import(){
+        return Inertia::render('Member/ImportMembers');
+    }
+
     /**
      * Display a listing of the resource.
      */
