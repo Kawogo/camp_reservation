@@ -38,24 +38,34 @@ class MembersImport implements ToModel, WithHeadingRow, WithValidation
     public function prepareForValidation($data, $index)
     {
 
-        // dd($data);
-        $new_data = [];
-
-        $new_data['room_id'] = $this->rooms->where('number', $data['room'])->first()->id;
-        $new_data['company_id'] = $this->companies->where('name', $data['company'])->first()->id;
-        $new_data['department_id'] = $this->departments->where('name', $data['department'])->first()->id;
-        $new_data['block_id'] = $this->blocks->where('name', $data['block'])->first()->id;
-        $new_data['camp_id'] = $this->camps->where('name', $data['camp'])->first()->id;
-        $new_data['section_id'] = $this->sections->where('name', $data['section'])->first()->id;
-        $new_data['engagement_date'] = Date::excelToDateTimeObject($data['engagement_date']);
-
-        // renaming the codes
         $data['id_number'] = $data['number'];
         $data['cost_code'] = $data['code'];
+        $data['room_id'] = $data['room'];
+        $data['company_id'] = $data['company'];
+        $data['department_id'] = $data['department'];
+        $data['block_id'] = $data['block'];
+        $data['camp_id'] = $data['camp'];
+        $data['section_id'] = $data['section'];
         unset($data['number']);
         unset($data['code']);
+        unset($data['room']);
+        unset($data['company']);
+        unset($data['department']);
+        unset($data['block']);
+        unset($data['camp']);
+        unset($data['section']);
 
-        return array_merge($data, $new_data);
+
+        $data['room_id'] = $this->rooms->where('number', $data['room_id'])->first()->id;
+        $data['company_id'] = $this->companies->where('name', $data['company_id'])->first()->id;
+        $data['department_id'] = $this->departments->where('name', $data['department_id'])->first()->id;
+        $data['block_id'] = $this->blocks->where('name', $data['block_id'])->first()->id;
+        $data['camp_id'] = $this->camps->where('name', $data['camp_id'])->first()->id;
+        $data['section_id'] = $this->sections->where('name', $data['section_id'])->first()->id;
+        $data['engagement_date'] = Date::excelToDateTimeObject($data['engagement_date']);
+
+
+        return $data;
     }
 
     public function rules(): array
@@ -88,22 +98,22 @@ class MembersImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {
         return new Member([
-            'room_id' => $row['room'],
-            'company_id' => $row['company'],
-            'department_id' => $row['department'],
+            'room_id' => $row['room_id'],
+            'company_id' => $row['company_id'],
+            'department_id' => $row['department_id'],
             'name' => $row['name'],
             'phone' => $row['phone'],
-            'id_number' => $row['number'],
+            'id_number' => $row['id_number'],
             'type' => $row['type'],
-            'block_id' => $row['block'],
-            'camp_id' => $row['camp'],
+            'block_id' => $row['block_id'],
+            'camp_id' => $row['camp_id'],
             'email' => $row['email'],
             'gender' => $row['gender'],
-            'cost_code' => $row['code'],
+            'cost_code' => $row['cost_code'],
             'level' => $row['level'],
             'roster' => $row['roster'],
             'engagement_date' => $row['engagement_date'],
-            'section_id' => $row['section']
+            'section_id' => $row['section_id']
         ]);
     }
 }
